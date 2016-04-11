@@ -1,4 +1,4 @@
-elemCreate = function(type,styleType,id,name,text,div,action=function(){},trigger="click"){
+/*elemCreate = function(type,styleType,id,name,text,div,action=function(){},trigger="click"){
 	var elem = document.createElement(type)
 	elem.type = styleType
 	elem.id = id
@@ -7,11 +7,17 @@ elemCreate = function(type,styleType,id,name,text,div,action=function(){},trigge
 		elem.value = text
 	}
 	else{
-		elem.textContent = text
+		elem.innerHTML = text
 	}
 	elem.addEventListener(trigger, action)
 	get(div).appendChild(elem)
-}
+	if(styleType == "button"){
+		get(id).value = text
+	}
+	else{
+		get(id).innerHTML = text
+	}
+}*/
 get = function(id) {return document.getElementById(id)}
 var multAllelesIndic = [0,0]
 var incomcoDomIndic = [0,0]
@@ -22,25 +28,29 @@ var Trait = {
 		get("2trait").style.visibility = "hidden"
 		get("instructions").innerHTML = "Now, select the specific attributes of your trait(s)"
 		for(i = 1;i <= num;i++){ //i is one so code is compressed in element creation
-			//get("crtArea").innerHTML += "<br> Trait " + (i+1) + "<br> <input type='radio' name='incom-coDom" + (i+1) + "' id='normDom" + (i+1) + "'>Normal Dominance</input> <input type='radio' name='incom-coDom" + (i+1) + "' id='incomDom" + (i+1) + "'>Incompletely Dominant</input> <input type='radio' name='incom-coDom" + (i+1) + "' id='coDom" + (i+1) + "'>Co-Dominant</input>"
-			//get("crtArea").innerHTML += "<br> <input type='checkbox' id='sex-link" + (i+1) + "'>Sex-Linked</input> <br> <input type='checkbox' id='multAlleles" + (i+1) + "'>Multiple Alleles</input><br>"
-			elemCreate("input","radio","normDom" + i,"incom-coDom" + i,"Normal Dominance","crtArea")
-			elemCreate("input","radio","incomDom" + i,"incom-coDom" + i,"Incomplete Dominance","crtArea")
-			elemCreate("input","radio","coDom" + i,"incom-coDom" + i,"Co-Dominance","crtArea")
-			elemCreate("input","checkbox","sex-link" + i,undefined,"Sex-Linked","crtArea")
-			elemCreate("input","checkbox","multAlleles" + i,undefined,"Multiple Alleles","crtArea")
+			get("crtArea").innerHTML += "<br> Trait " + i + "<br> <input type='radio' name='incom-coDom" + i + "' id='normDom" + i + "'>Normal Dominance</input> <input type='radio' name='incom-coDom" + i + "' id='incomDom" + i + "'>Incompletely Dominant</input> <input type='radio' name='incom-coDom" + i + "' id='coDom" + i + "'>Co-Dominant</input>"
+			get("crtArea").innerHTML += "<br> <input type='checkbox' id='sex-link" + i + "'>Sex-Linked</input> <br> <input type='checkbox' id='multAlleles" + i + "' onchange='t.specify(" + i + ")'>Multiple Alleles</input><br>"
+			//elemCreate("input","radio","normDom" + (i),"incom-coDom" + (i),"Normal Dominance","crtArea")
+			//elemCreate("input","radio","incomDom" + (i),"incom-coDom" + (i),"Incomplete Dominance","crtArea")
+			//elemCreate("input","radio","coDom" + (i),"incom-coDom" + (i),"Co-Dominance","crtArea")
+			//elemCreate("input","checkbox","sex-link" + (i),undefined,"Sex-Linked","crtArea")
+			//elemCreate("input","checkbox","multAlleles" + (i),undefined,"Multiple Alleles","crtArea",function(){t.specify(i)},"onchange")
 		}
-		//get("crtArea").innerHTML += "<br><button onclick='t.assign(" + num + ")'>Confirm</button>"
-		elemCreate("input","button","butConfirm",undefined,"Confirm","crtArea",function(){t.assign(num)})
+		get("crtArea").innerHTML += "<br><button onclick='t.assign(" + num + ")'>Confirm</button>"
+		//elemCreate("input","button","butConfirm",undefined,"Confirm","crtArea",function(){t.assign(num)})
 	},
-	assign: function(num){
-		for( i=0; i<num; i++){
-			if(get("multAlleles"+ (i+1)).checked == "true"){
-				get("crtArea").innerHTML = "<input type='number' min='1' max='3' id=''"
+	specify: function(num){
+		for(i=1;i<=num;i++){
+			if(get("multAlleles" + i).checked == "true"){
+				alert(num)
+				get("crtArea").innerHTML += "<input type='number' min='1' max='3' id='multAlleleNumber" + i + "'>Number of Alleles</input>"
+				/*elemCreate("input","number","multAlleleNumber" + num,undefined,"Number of Alleles")
+				get("multAlleleNumber" + num).min = 2
+				get("multAlleleNumber" + num).max = 4*/
 			}
 		}
 	},
-	specify: function(traitNum) {
+	assign: function(traitNum) {
 		get("crtArea").style.visibility = "hidden"
 	},
 	parents: function() {
