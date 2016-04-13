@@ -1,0 +1,30 @@
+body{
+	font-family: Ubuntu;
+	text-align: center;
+}
+button{
+	font-family: Ubuntu;
+}
+input{
+	font-family: Ubuntu;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(Ubuntu-R.ttf);
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(Ubuntu-RI.ttf);
+	font-style: italic;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(Ubuntu-B.ttf);
+	font-weight: bold;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(Ubuntu-BI.ttf);
+	font-style: italic;
+	font-weight: bold;
+}
