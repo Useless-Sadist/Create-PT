@@ -19,7 +19,7 @@
 	}
 }*/
 get = function(id) {return document.getElementById(id)}
-var multAllelesIndic = [0,0]
+var multAllelesIndic = [1,1]
 var incomcoDomIndic = [0,0]
 var sexLinkIndic = [0,0]
 var traitAmt = 0
@@ -74,6 +74,16 @@ var Trait = {
 	},
 	assign: function(traitNum) {
 		get("crtArea").style.visibility = "hidden"
+		get("instructions").innerHTML = "Now, assign values to the alleles."
+		for(i=0;i<traitNum;i++){
+			get("specArea").innerHTML += "Trait " + (i+1) + ":<br><br>" 
+			for(j=0;j<multAllelesIndic[i];j++){
+				get("specArea").innerHTML += "<input type='text' maxlength=1 id='domAllele" + (i+1) + (j+1) + "'>Dominant Allele " + (j+1) + "</input>"
+			}
+			get("specArea").innerHTML += "<input type='text' maxlength=1 id='resAllele" + (i+1) + "'>Recessive Allele </input><br><br>"
+		}
+	},
+	parents: function(){
 		
 	},
 	cross: function() {
