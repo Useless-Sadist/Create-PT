@@ -25,8 +25,8 @@ var sexLinkIndic = [0,0]
 var traitAmt = 0
 var Trait = {
 	create: function(num) {
-		get("1trait").style.visibility = "hidden"
-		get("2trait").style.visibility = "hidden"
+		get("1trait").parentNode.removeChild(get("1trait"))
+		get("2trait").parentNode.removeChild(get("2trait"))
 		traitAmt = num
 		get("instructions").innerHTML = "Now, select the specific attributes of your trait" + (num > 1 ? "s." : ".")
 		for(i = 1;i <= num;i++){ //i is one so code is compressed in element creation
@@ -73,18 +73,24 @@ var Trait = {
 		}
 	},
 	assign: function(traitNum) {
-		get("crtArea").style.visibility = "hidden"
+		get("overall").innerHTML += "<div id='specArea'></div>"
+		get("crtArea").parentNode.removeChild(get("crtArea"))
 		get("instructions").innerHTML = "Now, assign values to the alleles."
-		for(i=0;i<traitNum;i++){
+		for(i=1;i<=traitNum;i++){
 			get("specArea").innerHTML += "Trait " + (i+1) + ":<br><br>" 
-			for(j=0;j<multAllelesIndic[i];j++){
-				get("specArea").innerHTML += "<input type='text' maxlength=1 id='domAllele" + (i+1) + (j+1) + "'>Dominant Allele " + (j+1) + "</input>"
+			for(j=1;j<=multAllelesIndic[i-1];j++){
+				get("specArea").innerHTML += "<input type='text' maxlength=1 id='domAllele" + i + j + "'>Dominant Allele " + j + "</input><br>"
 			}
-			get("specArea").innerHTML += "<input type='text' maxlength=1 id='resAllele" + (i+1) + "'>Recessive Allele </input><br><br>"
+			get("specArea").innerHTML += "<input type='text' maxlength=1 id='resAllele" + i + "'>Recessive Allele </input><br><br>"
 		}
+		get("specArea").innerHTML += "<input type='button' id='traitSpecConfirm' onclick='t.parents(" + traitNum + ")' value='Confirm'></input>"
 	},
-	parents: function(){
-		
+	parents: function(traitNum){
+		for(i=1;i<=traitNum;i++){
+			for(j=1;j<=multAllelesIndic[i-1];j++){
+				
+			}
+		}
 	},
 	cross: function() {
 		

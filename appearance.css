@@ -8,6 +8,9 @@ button{
 input{
 	font-family: Ubuntu;
 }
+div{
+	text-align: center;
+}
 @font-face {
     font-family: Ubuntu;
     src: url(Ubuntu-R.ttf);
