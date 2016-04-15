@@ -19,14 +19,17 @@
 	}
 }*/
 get = function(id) {return document.getElementById(id)}
+del = function(id) {get(id).parentNode.removeChild(get(id))}
 var multAllelesIndic = [1,1]
 var incomcoDomIndic = [0,0]
 var sexLinkIndic = [0,0]
+var trait1 = ["","","",""]
+var trait2 = ["","","",""]
 var traitAmt = 0
 var Trait = {
 	create: function(num) {
-		get("1trait").parentNode.removeChild(get("1trait"))
-		get("2trait").parentNode.removeChild(get("2trait"))
+		del("1trait")
+		del("2trait")
 		traitAmt = num
 		get("instructions").innerHTML = "Now, select the specific attributes of your trait" + (num > 1 ? "s." : ".")
 		for(i = 1;i <= num;i++){ //i is one so code is compressed in element creation
@@ -55,6 +58,7 @@ var Trait = {
 		}
 		else{
 			get("multAlleleNumber" + num).disabled = true
+			multAllelesIndic[num - 1] = 1
 		}
 		if(get("normDom" + num).checked == true){
 			incomcoDomIndic[num - 1] = 0
@@ -74,10 +78,10 @@ var Trait = {
 	},
 	assign: function(traitNum) {
 		get("overall").innerHTML += "<div id='specArea'></div>"
-		get("crtArea").parentNode.removeChild(get("crtArea"))
+		del("crtArea")
 		get("instructions").innerHTML = "Now, assign values to the alleles."
 		for(i=1;i<=traitNum;i++){
-			get("specArea").innerHTML += "Trait " + (i+1) + ":<br><br>" 
+			get("specArea").innerHTML += "Trait " + i + ":<br><br>" 
 			for(j=1;j<=multAllelesIndic[i-1];j++){
 				get("specArea").innerHTML += "<input type='text' maxlength=1 id='domAllele" + i + j + "'>Dominant Allele " + j + "</input><br>"
 			}
@@ -88,8 +92,26 @@ var Trait = {
 	parents: function(traitNum){
 		for(i=1;i<=traitNum;i++){
 			for(j=1;j<=multAllelesIndic[i-1];j++){
-				
+				if(i == 1){
+					trait1[j-1] = get("domAllele1" + j).value
+				}
+				else if(i == 2){
+					trait2[j-1] = get("domAllele2" + j).value
+				}
 			}
+			if(i == 1){
+				trait1[3] = get("resAllele1").value
+			}
+			else if(i == 2){
+				trait2[3] = get("resAllele2").value
+			}
+		}
+		del("specArea")
+		get("instructions").innerHTML = "Next, define which alleles the parents possess."
+		get("overall").innerHTML += "<div id='parArea'></div>"
+		get("parArea").innerHTML += "<div id='parMale'>Male Parent</div><br><div id='parFem'>Female Parent</div>"
+		for(i = 0;i < traitNum;i++){
+			
 		}
 	},
 	cross: function() {
