@@ -23,8 +23,10 @@ del = function(id) {get(id).parentNode.removeChild(get(id))}
 var multAllelesIndic = [1,1]
 var incomcoDomIndic = [0,0]
 var sexLinkIndic = [0,0]
-var trait1 = ["","","",""]
-var trait2 = ["","","",""]
+var trait1 = []
+var trait2 = []
+var gamMale = []
+var gamFem = []
 var traitAmt = 0
 var Trait = {
 	create: function(num) {
@@ -93,25 +95,36 @@ var Trait = {
 		for(i=1;i<=traitNum;i++){
 			for(j=1;j<=multAllelesIndic[i-1];j++){
 				if(i == 1){
-					trait1[j-1] = get("domAllele1" + j).value
+					trait1[j] = get("domAllele1" + j).value
 				}
 				else if(i == 2){
-					trait2[j-1] = get("domAllele2" + j).value
+					trait2[j] = get("domAllele2" + j).value
 				}
 			}
 			if(i == 1){
-				trait1[3] = get("resAllele1").value
+				trait1[0] = get("resAllele1").value
 			}
 			else if(i == 2){
-				trait2[3] = get("resAllele2").value
+				trait2[0] = get("resAllele2").value
 			}
 		}
 		del("specArea")
 		get("instructions").innerHTML = "Next, define which alleles the parents possess."
 		get("overall").innerHTML += "<div id='parArea'></div>"
-		get("parArea").innerHTML += "<div id='parMale'>Male Parent</div><br><div id='parFem'>Female Parent</div>"
+		get("parArea").innerHTML += "<div id='parMale'>Male Parent<br></div><br><div id='parFem'>Female Parent<br></div>"
 		for(i = 0;i < traitNum;i++){
-			
+			get("parMale").innerHTML += "Trait " + (i+1) + ": <br>"
+			get("parFem").innerHTML += "Trait " + (i+1) + ": <br>"
+			for(j=0;j<2;j++){
+				/*for(k = 0;k <= multAllelesIndic[i];k++){
+					get("parMale").innerHTML += "<input type='radio' name='allele" + i + j + "' id='" + i + j + (traitNum == 0 ? trait1[k] : trait2[k]) + "' "
+				}*/
+				get("parMale").innerHTML += "<select id='allele" + i + j + "Male'></select>"
+				for(k = 0;k <= multAllelesIndic[i];k++){
+					get("allele" + i + j + "Male").innerHTML += "<option value='" + (i == 0 ? trait1[k] : trait2[k]) + "'>" + (i == 0 ? trait1[k] : trait2[k]) + "</option>"
+				}
+				get("parMale").innerHTML += "<br>"
+			}
 		}
 	},
 	cross: function() {
