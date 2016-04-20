@@ -28,6 +28,8 @@ var trait2 = []
 var gamMale = []
 var gamFem = []
 var traitAmt = 0
+var malAll = []
+var femAll = []
 var Trait = {
 	create: function(num) {
 		del("1trait")
@@ -116,19 +118,31 @@ var Trait = {
 			get("parMale").innerHTML += "Trait " + (i+1) + ": <br>"
 			get("parFem").innerHTML += "Trait " + (i+1) + ": <br>"
 			for(j=0;j<2;j++){
-				/*for(k = 0;k <= multAllelesIndic[i];k++){
-					get("parMale").innerHTML += "<input type='radio' name='allele" + i + j + "' id='" + i + j + (traitNum == 0 ? trait1[k] : trait2[k]) + "' "
-				}*/
 				get("parMale").innerHTML += "<select id='allele" + i + j + "Male'></select>"
+				get("parFem").innerHTML += "<select id='allele" + i + j + "Fem'></select>"
 				for(k = 0;k <= multAllelesIndic[i];k++){
 					get("allele" + i + j + "Male").innerHTML += "<option value='" + (i == 0 ? trait1[k] : trait2[k]) + "'>" + (i == 0 ? trait1[k] : trait2[k]) + "</option>"
+					get("allele" + i + j + "Fem").innerHTML += "<option value='" + (i == 0 ? trait1[k] : trait2[k]) + "'>" + (i == 0 ? trait1[k] : trait2[k]) + "</option>"
 				}
 				get("parMale").innerHTML += "<br>"
+				get("parFem").innerHTML += "<br>"
+			}
+			if(sexLinkIndic[i] == 1){
+				del("allele" + i + "1Male")
+				get("parMale").innerHTML += "<text id='allele" + i + "1>Y</text>" 
 			}
 		}
+		get("parArea").innerHTML += "<button onclick='t.cross(" + traitNum + ")'>Confirm</button>"
 	},
-	cross: function() {
-		
+	cross: function(traitNum) {
+		if(traitNum == 1){
+			malAll = [get("allele00Male").value,get("allele01Male").value]
+			femAll = [get("allele00Fem").value,get("allele01Fem").value]
+		}
+		else if(traitNum == 2){
+			malAll = [get("allele00Male").value,get("allele01Male").value,get("allele10Male").value,get("allele11Male").value]
+			femAll = [get("allele00Fem").value,get("allele01Fem").value,get("allele10Fem").value,get("allele11Fem").value]
+		}
 	},
 	graph: function() {
 		
