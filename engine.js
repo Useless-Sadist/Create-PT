@@ -27,14 +27,13 @@ var trait1 = []
 var trait2 = []
 var gamMale = []
 var gamFem = []
-var traitAmt = 0
 var malAll = []
 var femAll = []
+var kids = []
 var Trait = {
 	create: function(num) {
 		del("1trait")
 		del("2trait")
-		traitAmt = num
 		get("instructions").innerHTML = "Now, select the specific attributes of your trait" + (num > 1 ? "s." : ".")
 		for(i = 1;i <= num;i++){ //i is one so code is compressed in element creation
 			get("crtArea").innerHTML += "<br> Trait " + i + "<br> <input type='radio' name='incom-coDom" + i + "' id='normDom" + i + "' onchange='t.specify(" + i + ")' checked>Normal Dominance</input>" +
@@ -129,7 +128,7 @@ var Trait = {
 			}
 			if(sexLinkIndic[i] == 1){
 				del("allele" + i + "1Male")
-				get("parMale").innerHTML += "<text id='allele" + i + "1>Y</text>" 
+				get("parMale").innerHTML += "<text id='allele" + i + "1Male>Y</text>" 
 			}
 		}
 		get("parArea").innerHTML += "<button onclick='t.cross(" + traitNum + ")'>Confirm</button>"
@@ -143,8 +142,30 @@ var Trait = {
 			malAll = [get("allele00Male").value,get("allele01Male").value,get("allele10Male").value,get("allele11Male").value]
 			femAll = [get("allele00Fem").value,get("allele01Fem").value,get("allele10Fem").value,get("allele11Fem").value]
 		}
+		del("parArea")
+		get("overall").innerHTML += "<div id='graphArea'></div>"
+		if(traitNum == 1){
+			kids = [malAll[0] + femAll[0],malAll[1] + femAll[0],malAll[0] + femAll[1],malAll[1] + femAll[1]]
+		}
+		else if(traitNum == 2){
+			gamMale = [[malAll[0],malAll[2]],[malAll[0],malAll[3]],[malAll[1],malAll[2]],[malAll[1],malAll[3]]]
+			gamFem = [[femAll[0],femAll[2]],[femAll[0],femAll[3]],[femAll[1],femAll[2]],[femAll[1],femAll[3]]]
+			var count = 0
+			for(i=0;i<4;i++){
+				for(j=0;j<4;j++){
+					kids[count] = (gamMale[i][0] + gamFem[j][0] + gamMale[i][1] + gamFem [j][1])
+					count++
+				}
+			}
+			for(i in kids){
+				console.log(kids[i])
+			}
+		}
 	},
 	graph: function() {
+		
+	},
+	restart: function(){
 		
 	}
 }
