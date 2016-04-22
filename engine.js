@@ -1,23 +1,3 @@
-/*elemCreate = function(type,styleType,id,name,text,div,action=function(){},trigger="click"){
-	var elem = document.createElement(type)
-	elem.type = styleType
-	elem.id = id
-	elem.name = name
-	if(styleType == "button"){
-		elem.value = text
-	}
-	else{
-		elem.innerHTML = text
-	}
-	elem.addEventListener(trigger, action)
-	get(div).appendChild(elem)
-	if(styleType == "button"){
-		get(id).value = text
-	}
-	else{
-		get(id).innerHTML = text
-	}
-}*/
 get = function(id) {return document.getElementById(id)}
 del = function(id) {get(id).parentNode.removeChild(get(id))}
 var multAllelesIndic = [1,1]
@@ -42,22 +22,13 @@ var Trait = {
 			"<br> <input type='checkbox' id='sex-link" + i + "' onchange='t.specify(" + i + ")'>Sex-Linked</input> <br>" +
 			"<input type='checkbox' id='multAlleles" + i + "' onchange='t.specify(" + i + ")'>Multiple Dominant Alleles</input><br>" +
 			"<input type='number'min='2' max='3' id='multAlleleNumber" + i + "' value=2 onchange='t.specify(" + i + ")' disabled>Number of Dominant Alleles</input><br>"
-			/*elemCreate("input","radio","normDom" + (i),"incom-coDom" + (i),"Normal Dominance","crtArea")
-			elemCreate("input","radio","incomDom" + (i),"incom-coDom" + (i),"Incomplete Dominance","crtArea")
-			elemCreate("input","radio","coDom" + (i),"incom-coDom" + (i),"Co-Dominance","crtArea")
-			elemCreate("input","checkbox","sex-link" + (i),undefined,"Sex-Linked","crtArea")
-			elemCreate("input","checkbox","multAlleles" + (i),undefined,"Multiple Alleles","crtArea",function(){t.specify(i)},"onchange")*/
 		}
 		get("crtArea").innerHTML += "<br><button onclick='t.assign(" + num + ")'>Confirm</button>"
-		//elemCreate("input","button","butConfirm",undefined,"Confirm","crtArea",function(){t.assign(num)})
 	},
 	specify: function(num){
 		if(get("multAlleles" + num).checked == true){
 			get("multAlleleNumber" + num).disabled = false
 			multAllelesIndic[num - 1] = parseInt(get("multAlleleNumber" + num).value)
-			/*elemCreate("input","number","multAlleleNumber" + num,undefined,"Number of Alleles")
-			get("multAlleleNumber" + num).min = 2
-			get("multAlleleNumber" + num).max = 4*/
 		}
 		else{
 			get("multAlleleNumber" + num).disabled = true
@@ -161,6 +132,17 @@ var Trait = {
 		get("graphArea").innerHTML += "Children:<br>"
 		for(i in kids){
 			get("graphArea").innerHTML += kids[i] + (i < (kids.length - 1) ? ", " : "")
+		}
+		get("graphArea").innerHTML += "<table id='kidsTable'></table>"
+		if(traitNum == 1){
+			
+		}
+		else if(traitNum == 2){
+			for(i=0;i<4;i++){
+				for(j=0;j<4;j++){
+					get("kidsTable").insertRow(i).insertCell(0)
+				}
+			}
 		}
 	},
 	restart: function(){
