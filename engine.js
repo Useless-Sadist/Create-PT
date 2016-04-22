@@ -140,7 +140,7 @@ var Trait = {
 		}
 		else if(traitNum == 2){
 			malAll = [get("allele00Male").value,get("allele01Male").value,get("allele10Male").value,get("allele11Male").value]
-			femAll = [get("allele00Fem").value,get("allele01Fem").value,get("allele10Fem").value,get("allele11Fem").value]
+			femAll = [get("allele00Fem").value,get("allele01Fem").value,get("allele10Fem").value,get("allele11Fem").value] 
 		}
 		del("parArea")
 		get("overall").innerHTML += "<div id='graphArea'></div>"
@@ -148,7 +148,7 @@ var Trait = {
 			kids = [malAll[0] + femAll[0],malAll[1] + femAll[0],malAll[0] + femAll[1],malAll[1] + femAll[1]]
 		}
 		else if(traitNum == 2){
-			gamMale = [[malAll[0],malAll[2]],[malAll[0],malAll[3]],[malAll[1],malAll[2]],[malAll[1],malAll[3]]]
+			gamMale = [[malAll[0],malAll[2]],[malAll[0],malAll[3]],[malAll[1],malAll[2]],[malAll[1],malAll[3]]] //nested arrays are essential to prevent spaghetti
 			gamFem = [[femAll[0],femAll[2]],[femAll[0],femAll[3]],[femAll[1],femAll[2]],[femAll[1],femAll[3]]]
 			var count = 0
 			for(i=0;i<4;i++){
@@ -157,16 +157,25 @@ var Trait = {
 					count++
 				}
 			}
-			for(i in kids){
-				console.log(kids[i])
-			}
+		}
+		get("graphArea").innerHTML += "Children:<br>"
+		for(i in kids){
+			get("graphArea").innerHTML += kids[i] + (i < (kids.length - 1) ? ", " : "")
 		}
 	},
-	graph: function() {
-		
-	},
 	restart: function(){
-		
+		del("graphArea")
+		get("overall").innerHTML += "<div id='crtArea'><button id='1trait' onclick='t.create(1)'>1 Trait</button><button id='2trait' onclick='t.create(2)'>2 Traits</button></div>"
+		multAllelesIndic = [1,1]
+		incomcoDomIndic = [0,0]
+		sexLinkIndic = [0,0]
+		trait1 = []
+		trait2 = []
+		gamMale = []
+		gamFem = []
+		malAll = []
+		femAll = []
+		kids = []
 	}
 }
 var t = Trait
