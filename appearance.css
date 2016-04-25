@@ -1,12 +1,16 @@
 body{
 	font-family: Ubuntu;
 	text-align: center;
+	background-color: #2c7e87;
 }
 button{
 	font-family: Ubuntu;
 }
 input{
 	font-family: Ubuntu;
+}
+div{
+	text-align: center;
 }
 @font-face {
     font-family: Ubuntu;
@@ -27,4 +31,11 @@ input{
     src: url(Ubuntu-BI.ttf);
 	font-style: italic;
 	font-weight: bold;
+}
+table{
+	border-collapse: collapse;
+	top: 500px;
+}
+table, th, td{
+	border: 1px solid black;
 }
