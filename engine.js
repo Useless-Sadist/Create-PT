@@ -128,6 +128,14 @@ var Trait = {
 					count++
 				}
 			}
+			get("graphArea").innerHTML += "Male Gametes:<br>"
+			for(i in gamFem){
+				get("graphArea").innerHTML += gamMale[i][0] + gamMale[i][1] + (i < (gamMale.length - 1) ? ", " : "<br><br>")
+			}
+			get("graphArea").innerHTML += "Female Gametes:<br>"
+			for(i in gamMale){
+				get("graphArea").innerHTML += gamFem[i][0] + gamFem[i][1] + (i < (gamMale.length - 1) ? ", " : "<br><br>")
+			}
 		}
 		get("graphArea").innerHTML += "Children:<br>"
 		for(i in kids){
