@@ -41,7 +41,7 @@ var Trait = {
 			incomcoDomIndic[num - 1] = 1
 		}
 		else if(get("coDom" + num).checked == true){
-			incomcoDomIndic[num - 1] = 2
+			incomcoDomIndic[num - 1] = 1
 		}
 		if(get("sex-link" + num).checked == true){
 			sexLinkIndic[num - 1] = 1
@@ -59,7 +59,7 @@ var Trait = {
 			for(j=1;j<=multAllelesIndic[i-1];j++){
 				get("specArea").innerHTML += "<input type='text' maxlength=1 id='domAllele" + i + j + "'>Dominant Allele " + j + "</input><br>"
 			}
-			get("specArea").innerHTML += "<input type='text' maxlength=1 id='resAllele" + i + "'>Recessive Allele </input><br><br>"
+			get("specArea").innerHTML += "<input type='text' maxlength=1 id='resAllele" + i + "'>" + (incomcoDomIndic[i] == 0 ? "Recessive" : "Dominant") + " Allele </input><br><br>"
 		}
 		get("specArea").innerHTML += "<input type='button' id='traitSpecConfirm' onclick='t.parents(" + traitNum + ")' value='Confirm'></input>"
 	},
@@ -162,7 +162,8 @@ var Trait = {
 	},
 	restart: function(){
 		del("graphArea")
-		get("overall").innerHTML += "<div id='crtArea'><button id='1trait' onclick='t.create(1)'>1 Trait</button><button id='2trait' onclick='t.create(2)'>2 Traits</button></div>"
+		get("overall").innerHTML += "<text id='instructions'>Select the number of traits in your cross.</text>" + 
+		"div id='crtArea'><button id='1trait' onclick='t.create(1)'>1 Trait</button><button id='2trait' onclick='t.create(2)'>2 Traits</button></div>"
 		multAllelesIndic = [1,1]
 		incomcoDomIndic = [0,0]
 		sexLinkIndic = [0,0]
