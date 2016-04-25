@@ -141,17 +141,24 @@ var Trait = {
 		for(i in kids){
 			get("graphArea").innerHTML += kids[i] + (i < (kids.length - 1) ? ", " : "")
 		}
-		get("graphArea").innerHTML += "<table id='kidsTable'></table>"
+		get("graphArea").innerHTML += "<br><br><br><table id='kidsTable' style='table' align='center'></table>"
 		if(traitNum == 1){
-			
-		}
-		else if(traitNum == 2){
-			for(i=0;i<4;i++){
-				for(j=0;j<4;j++){
-					get("kidsTable").insertRow(i).insertCell(0)
+			for(i=0;i<2;i++){
+				get("kidsTable").innerHTML += "<tr id='row" + i + "'></tr>"
+				for(j=0;j<2;j++){
+					get("row" + i).innerHTML += "<td>" + kids[(i*2) + j] + "</td>"
 				}
 			}
 		}
+		else if(traitNum == 2){
+			for(i=0;i<4;i++){
+				get("kidsTable").innerHTML += "<tr id='row" + i + "'></tr>"
+				for(j=0;j<4;j++){
+					get("row" + i).innerHTML += "<td>" + kids[(i*4) + j] + "</td>"
+				}
+			}
+		}
+		get("graphArea").innerHTML += "<br><br><br><button id='restart' onclick='t.restart()'>Restart</button>"
 	},
 	restart: function(){
 		del("graphArea")
